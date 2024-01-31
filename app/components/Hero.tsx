@@ -7,85 +7,66 @@ import { useRef } from "react";
 export const Hero = () => {
 	const refOne = useRef<HTMLSpanElement>(null);
 	const refTwo = useRef<HTMLSpanElement>(null);
+	const ballOne = useRef<HTMLDivElement>(null);
+	const ballTwo = useRef<HTMLDivElement>(null);
 	useGSAP(() => {
-		const boxOne = document.querySelector(".box-one");
-		const boxTwo = document.querySelector(".box-two");
-		if (refOne.current && refTwo.current) {
+		if (
+			ballOne.current &&
+			ballTwo.current &&
+			refOne.current &&
+			refTwo.current
+		) {
 			const elOne = refOne.current.getBoundingClientRect();
 			const elTwo = refTwo.current.getBoundingClientRect();
 			const tl = gsap.timeline();
-			console.log(refTwo.current.offsetWidth / refTwo.current.offsetHeight);
-			gsap.set(boxTwo, {
-				top: elTwo.top,
-				left: elTwo.left,
-				width: refTwo.current.offsetWidth,
-				height: refTwo.current.offsetHeight,
-				scaleX: 0.3,
-				transformOrigin: "right",
-				borderRadius: "50%",
-			});
 
-			tl.fromTo(
-				boxOne,
-				{
-					xPercent: -100,
-					top: elOne.top,
-					width: refOne.current.offsetHeight,
-					height: refOne.current.offsetHeight,
-					borderRadius: "50%",
-				},
-				{
-					xPercent: 0,
-					top: elOne.top,
-					left: elOne.left,
-					duration: 0.5,
-				},
-			)
-				.to(boxOne, {
-					duration: 0.25,
-					borderTopLeftRadius: "0%",
-					borderBottomLeftRadius: "0%",
-				})
-				.to(boxOne, {
-					duration: 1,
+			tl.to(ballOne.current, {
+				opacity: 1,
+				top: elOne.top,
+				duration: 1,
+			})
+				.to(ballOne.current, { left: elOne.left, duration: 1 })
+				.to(ballOne.current, {
 					width: refOne.current.offsetWidth,
-					borderTopRightRadius: "9999px",
-					borderBottomRightRadius: "9999px",
-				})
-				.fromTo(
-					boxTwo,
-					{
-						x: 300,
-					},
-					{
-						x: 0,
-						duration: 2,
-					},
-				)
-				.to(boxTwo, {
-					scaleX: 1,
+					height: refOne.current.offsetHeight,
 					duration: 1,
-					borderBottomLeftRadius: "9999px",
-					borderBottomRightRadius: "9999px",
-					borderTopRightRadius: "9999px",
-					borderTopLeftRadius: "9999px",
+				})
+				.to(ballTwo.current, {
+					opacity: 1,
+					top: elTwo.top,
+					duration: 1,
+				})
+				.to(ballTwo.current, {
+					right: window.innerWidth - elTwo.right,
+					duration: 1,
+				})
+				.to(ballTwo.current, {
+					width: refTwo.current.offsetWidth,
+					height: refTwo.current.offsetHeight,
+					duration: 1,
 				});
 		}
 	}, {});
 	return (
-		<div className="p-10 pt-40 h-screen overflow-hidden">
-			<h1 className="text-9xl font-semibold  relative">
-				I SIMPLY DESIGN COOL{" "}
-				<span className="px-5" ref={refOne}>
+		<div className="p-10 pt-40 relative h-screen overflow-hidden">
+			<div
+				ref={ballOne}
+				className="w-40 mix-blend-difference h-40 absolute top-0 left-0  rounded-full bg-white"
+			/>
+			<div
+				ref={ballTwo}
+				className="w-40 mix-blend-difference h-40 absolute top-0 right-0 rounded-full  bg-white"
+			/>
+			<h1 className="text-9xl font-semibold text-black ">
+				I SIMPLY DESIGN COOL
+				<span ref={refOne} className="px-5 ">
 					WEBSITES
-				</span>{" "}
-				,AND MY NAME IS{" "}
-				<span className="px-5" ref={refTwo}>
+				</span>
+				,AND MY NAME IS
+				<span ref={refTwo} className="px-5  ">
 					ANAKIN
 				</span>
 			</h1>
-			<div className="box-one   mix-blend-difference  bg-white  absolute" />
-			<div className="box-two  mix-blend-difference  bg-white absolute" />
 		</div>
 	);
 };
