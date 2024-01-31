@@ -3,7 +3,7 @@ import { data } from "../data";
 
 export const Navbar = () => {
   return (
-    <div className="w-full fixed top-0 pt-4 pb-10 px-4 border-black border-b-2 flex ">
+    <div className="w-full z-50 fixed top-0 pt-4 pb-10 px-4 border-black border-b-2 flex ">
       <div className="flex-1 ">
         <h1 className="text-3xl font-semibold">{data.personal.name}</h1>
       </div>

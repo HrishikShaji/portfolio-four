@@ -20,42 +20,57 @@ export const Hero = () => {
 			const elTwo = refTwo.current.getBoundingClientRect();
 			const tl = gsap.timeline();
 
+			gsap.set(ballOne.current, {
+				width: elOne.height,
+				height: elOne.height,
+			});
+			gsap.set(ballTwo.current, {
+				width: elTwo.height,
+				height: elTwo.height,
+			});
+
 			tl.to(ballOne.current, {
 				opacity: 1,
 				top: elOne.top,
-				duration: 1,
+				duration: 0.75,
+				ease: "bounce",
 			})
-				.to(ballOne.current, { left: elOne.left, duration: 1 })
+				.to(ballOne.current, { left: elOne.left, duration: 0.5 })
 				.to(ballOne.current, {
 					width: refOne.current.offsetWidth,
 					height: refOne.current.offsetHeight,
-					duration: 1,
-				})
+					duration: 0.5,
+				});
+			const secondTl = gsap.timeline();
+			secondTl
 				.to(ballTwo.current, {
+					delay: .25,
 					opacity: 1,
 					top: elTwo.top,
-					duration: 1,
+					duration: 0.75,
+					ease: "bounce",
 				})
 				.to(ballTwo.current, {
 					right: window.innerWidth - elTwo.right,
-					duration: 1,
+					duration: 0.5,
 				})
 				.to(ballTwo.current, {
 					width: refTwo.current.offsetWidth,
 					height: refTwo.current.offsetHeight,
-					duration: 1,
+					duration: 0.5,
 				});
 		}
+
 	}, {});
 	return (
 		<div className="p-10 pt-40 relative h-screen overflow-hidden">
 			<div
 				ref={ballOne}
-				className="w-40 mix-blend-difference h-40 absolute top-0 left-0  rounded-full bg-white"
+				className=" mix-blend-difference  absolute top-0 left-0  rounded-full bg-white"
 			/>
 			<div
 				ref={ballTwo}
-				className="w-40 mix-blend-difference h-40 absolute top-0 right-0 rounded-full  bg-white"
+				className="mix-blend-difference  absolute top-0 right-0 rounded-full  bg-white"
 			/>
 			<h1 className="text-9xl font-semibold text-black ">
 				I SIMPLY DESIGN COOL
