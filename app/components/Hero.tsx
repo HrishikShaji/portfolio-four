@@ -14,45 +14,66 @@ export const Hero = () => {
 			const elOne = refOne.current.getBoundingClientRect();
 			const elTwo = refTwo.current.getBoundingClientRect();
 			const tl = gsap.timeline();
+			console.log(refTwo.current.offsetWidth / refTwo.current.offsetHeight);
+			gsap.set(boxTwo, {
+				top: elTwo.top,
+				left: elTwo.left,
+				width: refTwo.current.offsetWidth,
+				height: refTwo.current.offsetHeight,
+				scaleX: 0.3,
+				transformOrigin: "right",
+				borderRadius: "50%",
+			});
+
 			tl.fromTo(
 				boxOne,
 				{
-					x: -100,
-					scaleX: 0,
+					xPercent: -100,
 					top: elOne.top,
-					width: refOne.current.offsetWidth,
+					width: refOne.current.offsetHeight,
 					height: refOne.current.offsetHeight,
+					borderRadius: "50%",
 				},
 				{
-					x: 0,
-					transformOrigin: "left",
-					scaleX: 1,
+					xPercent: 0,
 					top: elOne.top,
 					left: elOne.left,
+					duration: 0.5,
+				},
+			)
+				.to(boxOne, {
+					duration: 0.25,
+					borderTopLeftRadius: "0%",
+					borderBottomLeftRadius: "0%",
+				})
+				.to(boxOne, {
 					duration: 1,
-				},
-			).fromTo(
-				boxTwo,
-				{
-					x: 600,
-					scaleX: 0,
-					top: elTwo.top,
-					width: refTwo.current.offsetWidth,
-					height: refTwo.current.offsetHeight,
-				},
-				{
-					x: 0,
+					width: refOne.current.offsetWidth,
+					borderTopRightRadius: "9999px",
+					borderBottomRightRadius: "9999px",
+				})
+				.fromTo(
+					boxTwo,
+					{
+						x: 300,
+					},
+					{
+						x: 0,
+						duration: 2,
+					},
+				)
+				.to(boxTwo, {
 					scaleX: 1,
-					transformOrigin: "right",
-					top: elTwo.top,
-					left: elTwo.left,
 					duration: 1,
-				},
-			);
+					borderBottomLeftRadius: "9999px",
+					borderBottomRightRadius: "9999px",
+					borderTopRightRadius: "9999px",
+					borderTopLeftRadius: "9999px",
+				});
 		}
 	}, {});
 	return (
-		<div className="p-10 pt-40 h-screen">
+		<div className="p-10 pt-40 h-screen overflow-hidden">
 			<h1 className="text-9xl font-semibold  relative">
 				I SIMPLY DESIGN COOL{" "}
 				<span className="px-5" ref={refOne}>
@@ -63,8 +84,8 @@ export const Hero = () => {
 					ANAKIN
 				</span>
 			</h1>
-			<div className="box-one  mix-blend-difference rounded-r-full bg-white  absolute" />
-			<div className="box-two  mix-blend-difference rounded-full bg-white absolute" />
+			<div className="box-one   mix-blend-difference  bg-white  absolute" />
+			<div className="box-two  mix-blend-difference  bg-white absolute" />
 		</div>
 	);
 };
