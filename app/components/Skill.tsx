@@ -1,7 +1,6 @@
 "use client";
 
 import { useGSAP } from "@gsap/react";
-import { data } from "../data";
 import { useRef } from "react";
 import gsap from "gsap";
 
@@ -24,24 +23,34 @@ export const Skill: React.FC<SkillProps> = ({ item }) => {
 			const animateOverlay = (event: MouseEvent) => {
 				const containerCenterX = rect ? rect.width / 2 : 0;
 				const entryPointX = event.clientX - rect?.left;
-				const direction = entryPointX < containerCenterX ? -1 : 1;
+				const xDirection = entryPointX < containerCenterX ? -1 : 1;
+
+				const containerCenterY = rect ? rect.height / 2 : 0;
+				const entryPointY = event.clientY - rect?.top;
+				const yDirection = entryPointY < containerCenterY ? -1 : 1;
 
 				gsap.set(overlayRef.current, {
 					display: "block",
-					xPercent: 100 * direction,
+					yPercent: 100 * yDirection,
+					xPercent: 100 * xDirection,
 				});
 				gsap.to(overlayRef.current, {
+					yPercent: 0,
 					xPercent: 0,
-					duration: 1,
+					duration: 0.5,
 				});
 			};
 			const exitAnimation = (event: MouseEvent) => {
 				const containerCenterX = rect ? rect.width / 2 : 0;
 				const entryPointX = event.clientX - rect?.left;
-				const direction = entryPointX < containerCenterX ? -1 : 1;
+				const xDirection = entryPointX < containerCenterX ? -1 : 1;
+				const containerCenterY = rect ? rect.height / 2 : 0;
+				const entryPointY = event.clientY - rect?.top;
+				const yDirection = entryPointY < containerCenterY ? -1 : 1;
 				gsap.to(overlayRef.current, {
-					xPercent: 100 * direction,
-					duration: 1,
+					yPercent: 100 * yDirection,
+					xPercent: 100 * xDirection,
+					duration: 0.5,
 				});
 			};
 
