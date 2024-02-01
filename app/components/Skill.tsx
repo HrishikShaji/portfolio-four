@@ -21,37 +21,58 @@ export const Skill: React.FC<SkillProps> = ({ item }) => {
 			rect
 		) {
 			const animateOverlay = (event: MouseEvent) => {
-				const containerCenterX = rect ? rect.width / 2 : 0;
-				const entryPointX = event.clientX - rect?.left;
-				const xDirection = entryPointX < containerCenterX ? -1 : 1;
+				const rect = containerRef.current?.getBoundingClientRect();
+				if (rect) {
+					const containerCenterX = rect.width / 2;
+					const containerCenterY = rect.height / 2;
 
-				const containerCenterY = rect ? rect.height / 2 : 0;
-				const entryPointY = event.clientY - rect?.top;
-				const yDirection = entryPointY < containerCenterY ? -1 : 1;
+					const entryPointX = event.clientX - rect.left;
+					const entryPointY = event.clientY - rect.top;
 
-				gsap.set(overlayRef.current, {
-					display: "block",
-					yPercent: 100 * yDirection,
-					xPercent: 100 * xDirection,
-				});
-				gsap.to(overlayRef.current, {
-					yPercent: 0,
-					xPercent: 0,
-					duration: 0.5,
-				});
+					const deltaX = entryPointX - containerCenterX;
+					const deltaY = entryPointY - containerCenterY;
+
+					if (Math.abs(deltaX) > Math.abs(deltaY)) {
+						gsap.set(overlayRef.current, {
+							display: "block",
+							xPercent: deltaX > 0 ? 100 : -100,
+						});
+					} else {
+						gsap.set(overlayRef.current, {
+							display: "block",
+							yPercent: deltaY > 0 ? 100 : -100,
+						});
+					}
+
+					gsap.to(overlayRef.current, {
+						yPercent: 0,
+						xPercent: 0,
+						duration: 0.5,
+					});
+				}
 			};
+
 			const exitAnimation = (event: MouseEvent) => {
-				const containerCenterX = rect ? rect.width / 2 : 0;
-				const entryPointX = event.clientX - rect?.left;
-				const xDirection = entryPointX < containerCenterX ? -1 : 1;
-				const containerCenterY = rect ? rect.height / 2 : 0;
-				const entryPointY = event.clientY - rect?.top;
-				const yDirection = entryPointY < containerCenterY ? -1 : 1;
-				gsap.to(overlayRef.current, {
-					yPercent: 100 * yDirection,
-					xPercent: 100 * xDirection,
-					duration: 0.5,
-				});
+				const rect = containerRef.current?.getBoundingClientRect();
+				if (rect) {
+					const entryPointX = event.clientX - rect.left;
+					const entryPointY = event.clientY - rect.top;
+
+					const deltaX = entryPointX - rect.width / 2;
+					const deltaY = entryPointY - rect.height / 2;
+
+					if (Math.abs(deltaX) > Math.abs(deltaY)) {
+						gsap.to(overlayRef.current, {
+							xPercent: deltaX > 0 ? 100 : -100,
+							duration: 0.5,
+						});
+					} else {
+						gsap.to(overlayRef.current, {
+							yPercent: deltaY > 0 ? 100 : -100,
+							duration: 0.5,
+						});
+					}
+				}
 			};
 
 			containerRef.current.addEventListener("mouseenter", animateOverlay);
