@@ -14,20 +14,33 @@ export const Skill: React.FC<SkillProps> = ({ item }) => {
 	const titleRef = useRef<HTMLHeadingElement>(null);
 	const containerRef = useRef<HTMLDivElement>(null);
 	useGSAP(() => {
-		if (overlayRef.current && titleRef.current && containerRef.current) {
-			const animateOverlay = () => {
+		const rect = containerRef.current?.getBoundingClientRect();
+		if (
+			overlayRef.current &&
+			titleRef.current &&
+			containerRef.current &&
+			rect
+		) {
+			const animateOverlay = (event: MouseEvent) => {
+				const containerCenterX = rect ? rect.width / 2 : 0;
+				const entryPointX = event.clientX - rect?.left;
+				const direction = entryPointX < containerCenterX ? -1 : 1;
+
 				gsap.set(overlayRef.current, {
 					display: "block",
-					yPercent: 100,
+					xPercent: 100 * direction,
 				});
 				gsap.to(overlayRef.current, {
-					yPercent: 0,
+					xPercent: 0,
 					duration: 1,
 				});
 			};
-			const exitAnimation = () => {
+			const exitAnimation = (event: MouseEvent) => {
+				const containerCenterX = rect ? rect.width / 2 : 0;
+				const entryPointX = event.clientX - rect?.left;
+				const direction = entryPointX < containerCenterX ? -1 : 1;
 				gsap.to(overlayRef.current, {
-					yPercent: 100,
+					xPercent: 100 * direction,
 					duration: 1,
 				});
 			};
