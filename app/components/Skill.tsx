@@ -16,23 +16,19 @@ export const Skill: React.FC<SkillProps> = ({ item }) => {
 	useGSAP(() => {
 		if (overlayRef.current && titleRef.current && containerRef.current) {
 			const animateOverlay = () => {
-				gsap.fromTo(
-					overlayRef.current,
-					{
-						scaleY: 0,
-						transformOrigin: "bottom",
-					},
-					{
-						scaleY: 1,
-						duration: 1,
-					},
-				);
+				gsap.set(overlayRef.current, {
+					display: "block",
+					yPercent: 100,
+				});
+				gsap.to(overlayRef.current, {
+					yPercent: 0,
+					duration: 1,
+				});
 			};
 			const exitAnimation = () => {
 				gsap.to(overlayRef.current, {
-					scaleY: 0,
+					yPercent: 100,
 					duration: 1,
-					transformOrigin: "bottom",
 				});
 			};
 
@@ -41,12 +37,17 @@ export const Skill: React.FC<SkillProps> = ({ item }) => {
 		}
 	}, {});
 	return (
-		<div ref={containerRef} className="border-2 relative p-2 h-40 border-black">
+		<div
+			ref={containerRef}
+			className="overflow-hidden border-2 border-black relative p-2 h-40"
+		>
 			<div
 				ref={overlayRef}
-				className="w-full h-full absolute  top-0 left-0  bg-white mix-blend-difference"
+				className="w-full h-full hidden  absolute z-40  top-0 left-0  bg-white mix-blend-difference"
 			></div>
-			<h1 ref={titleRef}>{item}</h1>
+			<h1 ref={titleRef} className="">
+				{item}
+			</h1>
 		</div>
 	);
 };
