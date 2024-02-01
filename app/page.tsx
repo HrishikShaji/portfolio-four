@@ -5,6 +5,7 @@ import ScrollTrigger from "gsap/dist/ScrollTrigger";
 import { About } from "./components/About";
 import { Features } from "./components/Features";
 import { Skills } from "./components/Skills";
+import { Expertise } from "./components/Expertise";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -15,6 +16,8 @@ export default function Home() {
 			<About />
 			<Features />
 			<Skills />
+			<Expertise />
+
 		</main>
 	);
 }
