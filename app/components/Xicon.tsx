@@ -2,27 +2,34 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 
 export const XIcon = () => {
+	const lineOneRef = useRef<SVGPathElement>(null);
+	const lineTwoRef = useRef<SVGPathElement>(null);
+
 	useGSAP(() => {
-		const lineOne = document.getElementById("line-one");
-		const lineTwo = document.getElementById("line-two");
-
-		const tl = gsap.timeline();
-		tl.fromTo(
-			lineOne,
-			{
+		if (lineOneRef.current && lineTwoRef.current) {
+			const lineOneLength = lineOneRef.current.getTotalLength();
+			const lineTwoLength = lineTwoRef.current.getTotalLength();
+			gsap.set(lineTwoRef.current, {
+				strokeDasharray: lineOneLength, // initially no stroke
+				strokeDashoffset: lineOneLength, // offset to hide the stroke
+				transformOrigin: "top",
 				strokeWidth: 0,
-				strokeDashoffset: 0,
-			},
-			{
-				strokeWidth: 20,
+			});
 
-				strokeDashoffset: 20,
-				duration: 1,
-			},
-		);
+			gsap.to(
+				lineTwoRef.current,
+
+				{
+					strokeWidth: 20,
+					strokeDashoffset: 0, // no offset to show full stroke
+					duration: 2,
+					delay: 2,
+				},
+			);
+		}
 	}, {});
 
 	return (
@@ -35,18 +42,18 @@ export const XIcon = () => {
 		>
 			<g id="Group 12">
 				<path
-					id="line-one"
+					ref={lineOneRef}
 					d="M38.8909 116.673L116.673 38.8909"
 					stroke="red"
-					stroke-width="20"
-					stroke-linecap="round"
+					strokeWidth="20"
+					strokeLinecap="round"
 				/>
 				<path
-					id="line-two"
+					ref={lineTwoRef}
 					d="M116.673 116.673L38.8908 38.8909"
 					stroke="red"
-					stroke-width="20"
-					stroke-linecap="round"
+					strokeWidth="20"
+					strokeLinecap="round"
 				/>
 			</g>
 		</svg>

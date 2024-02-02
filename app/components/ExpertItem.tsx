@@ -4,6 +4,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRef } from "react";
 import { XIcon } from "./Xicon";
+import { XSvg } from "./XSvg";
 
 export const ExpertItem = () => {
 	const overlayRef = useRef<HTMLDivElement>(null);
@@ -39,7 +40,9 @@ export const ExpertItem = () => {
 			ref={containerRef}
 			className="border-2 border-black p-2  h-full w-full overflow-hidden relative"
 		>
-			<XIcon />
+			<div className="w-40 h-40 stroke-black">
+				<XSvg />
+			</div>
 			<div
 				ref={overlayRef}
 				className="w-full h-full absolute bg-white mix-blend-difference hidden top-0 left-0"
