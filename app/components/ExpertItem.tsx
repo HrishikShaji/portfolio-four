@@ -11,10 +11,6 @@ export const ExpertItem = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isMounted, setIsMounted] = useState(false);
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
   useGSAP(() => {
     if (overlayRef.current && containerRef.current) {
       const animateOverlay = (event: MouseEvent) => {
@@ -41,7 +37,6 @@ export const ExpertItem = () => {
     }
   }, {});
 
-  if (!isMounted) return null;
   return (
     <div
       ref={containerRef}
