@@ -9,22 +9,23 @@ import { Skills } from "./components/Skills";
 import { Expertise } from "./components/Expertise";
 import { Testimonials } from "./components/Testimonials";
 import { ProjectsHeading } from "./components/ProjectsHeading";
-import { Spacer } from "./components/Spacer";
 import { Projects } from "./components/Projects";
+import { Contact } from "./components/Contact";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export default function Home() {
-  return (
-    <main className="main-container w-full h-full bg-white  text-black">
-      <Hero />
-      <About />
-      <Features />
-      <Skills />
-      <Expertise />
-      <Testimonials />
-      <ProjectsHeading />
-      <Projects />
-    </main>
-  );
+	return (
+		<main className="main-container w-full h-full bg-white  text-black">
+			<Hero />
+			<About />
+			<Features />
+			<Skills />
+			<Expertise />
+			<Testimonials />
+			<ProjectsHeading />
+			<Projects />
+			<Contact />
+		</main>
+	);
 }
