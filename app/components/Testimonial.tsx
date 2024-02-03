@@ -3,6 +3,7 @@ import { useGSAP } from "@gsap/react";
 import { data } from "../data";
 import { Dispatch, SetStateAction, useRef } from "react";
 import gsap from "gsap";
+import Image from "next/image";
 
 interface TestimonialProps {
 	item: Record<string, any>;
@@ -41,13 +42,26 @@ export const Testimonial: React.FC<TestimonialProps> = ({ item, setItem }) => {
 	return (
 		<div
 			ref={containerRef}
-			className="border-2 border-black p-5 w-full overflow-hidden relative"
+			onMouseEnter={() => setItem(item)}
+			className="border-2 border-black w-full flex gap-5 overflow-hidden relative"
 		>
 			<div
 				ref={overlayRef}
 				className="w-full h-full absolute bg-white mix-blend-difference hidden top-0 left-0"
 			/>
-			<h1>{item.name}</h1>
+			<div className="w-[30%] h-40">
+				<Image
+					src={item.img}
+					alt="image"
+					className="w-full h-full object-cover mix-blend-difference"
+					height={1000}
+					width={1000}
+				/>
+			</div>
+			<div className="flex flex-col justify-center w-[70%] gap-2">
+				<h1 className="text-3xl ">{item.name}</h1>
+				<p className=" line-clamp-3 ">{item.desc}</p>
+			</div>
 		</div>
 	);
 };
