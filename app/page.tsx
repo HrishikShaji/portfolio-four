@@ -1,3 +1,4 @@
+"use client";
 import { Hero } from "./components/Hero";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -7,18 +8,22 @@ import { Features } from "./components/Features";
 import { Skills } from "./components/Skills";
 import { Expertise } from "./components/Expertise";
 import { Testimonials } from "./components/Testimonials";
+import { ProjectsHeading } from "./components/ProjectsHeading";
+import { Spacer } from "./components/Spacer";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export default function Home() {
-	return (
-		<main className="main-container w-full h-full bg-white  text-black">
-			<Hero />
-			<About />
-			<Features />
-			<Skills />
-			<Expertise />
-			<Testimonials />
-		</main>
-	);
+  return (
+    <main className="main-container w-full h-full bg-white  text-black">
+      <Hero />
+      <About />
+      <Features />
+      <Skills />
+      <Expertise />
+      <Testimonials />
+      <ProjectsHeading />
+      <Spacer />
+    </main>
+  );
 }
