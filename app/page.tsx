@@ -10,6 +10,7 @@ import { Expertise } from "./components/Expertise";
 import { Testimonials } from "./components/Testimonials";
 import { ProjectsHeading } from "./components/ProjectsHeading";
 import { Spacer } from "./components/Spacer";
+import { Projects } from "./components/Projects";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -23,7 +24,7 @@ export default function Home() {
       <Expertise />
       <Testimonials />
       <ProjectsHeading />
-      <Spacer />
+      <Projects />
     </main>
   );
 }

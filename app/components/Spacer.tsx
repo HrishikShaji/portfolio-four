@@ -1,3 +1,3 @@
 export const Spacer = () => {
-  return <div className="h-screen w-full bg-black"></div>;
+  return <div className="h-screen w-full "></div>;
 };
