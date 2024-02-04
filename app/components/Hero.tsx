@@ -3,7 +3,6 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRef } from "react";
-import { Circle } from "./Circle";
 
 export const Hero = () => {
 	const refOne = useRef<HTMLSpanElement>(null);

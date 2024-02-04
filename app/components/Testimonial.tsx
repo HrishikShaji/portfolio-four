@@ -1,6 +1,4 @@
-"use client";
 import { useGSAP } from "@gsap/react";
-import { data } from "../data";
 import { Dispatch, SetStateAction, useRef } from "react";
 import gsap from "gsap";
 import Image from "next/image";
@@ -16,7 +14,7 @@ export const Testimonial: React.FC<TestimonialProps> = ({ item, setItem }) => {
 
 	useGSAP(() => {
 		if (overlayRef.current && containerRef.current) {
-			const animateOverlay = (event: MouseEvent) => {
+			const animateOverlay = () => {
 				gsap.set(overlayRef.current, {
 					display: "block",
 					xPercent: -100,
@@ -28,7 +26,7 @@ export const Testimonial: React.FC<TestimonialProps> = ({ item, setItem }) => {
 				});
 			};
 
-			const exit = (event: MouseEvent) => {
+			const exit = () => {
 				gsap.to(overlayRef.current, {
 					xPercent: -100,
 					duration: 1,

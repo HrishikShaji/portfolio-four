@@ -2,7 +2,6 @@
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { Duru_Sans } from "next/font/google";
 import { useRef } from "react";
 
 export const Features = () => {
@@ -18,7 +17,6 @@ export const Features = () => {
 			threeRef.current &&
 			fourRef.current
 		) {
-			const rect = oneRef.current?.getBoundingClientRect();
 			const animateOne = () => {
 				gsap.to(oneRef.current, {
 					scaleX: 2,
